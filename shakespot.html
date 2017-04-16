@@ -22,18 +22,18 @@
         <section id="zero" class="window">
             <div class="content">
 			<center>
-                    <h1 id = "masthead" >Your Choice of Shakespeare Play</h1>
+                    <h1 id = "masthead" >hamlet</h1>
 			</center>
                     <br>
                     <center>
                       <div>
               <!--          <label for="Play"> Play </label> -->
                         <select id = "choosePlay" name="Play">
-                          <option value="Choose the play">Choose the play</option>
-                        <option value="Lear">Lear</option>
-                        <option value="Hamlet"> Hamlet </option>
-                        <option value="Macbeth"> Macbeth </option>
-                        <option value="Othello"> Othello </option>
+                    <!--      <option value="Choose the play">Choose the play</option> -->
+                        <option value="lear" name = 'King Lear' >Lear</option>
+                        <option value="hamlet" name = 'Hamlet, Prince of Denmark' selected="selected"> Hamlet </option>
+                        <option value="macbeth" name = "Macbeth" > Macbeth </option>
+                        <option value="othello" name = 'Othello' > Othello </option>
                       </select>
 					  <br><br>
             <select id = "chooseSearch" name="searchChoice">
@@ -42,6 +42,7 @@
             <option value="Search for Word"> Search for Word </option>
             <option value="Search for Scene or Act"> Search for Scene or Act </option>
             <option value="Search for all lines by character"> Search for all lines by character </option>
+            <option value="All Stage Directions"> All Stage Directions </option>
           </select>
 <br><br>
                         <p>
@@ -116,6 +117,14 @@ h1
   color: white;
 }
 
+.sectionOfPlay
+{
+
+border-style: dashed;
+border-color: black;
+
+}
+
 </style>
  <script src="jquery.windows.js"></script>
       <!--  <link rel="stylesheet" href="main.css"> -->
@@ -128,7 +137,10 @@ h1
 $(document).ready(function(){
      $("#choosePlay").change(function(){
 
-      var playSelected = $('#choosePlay').val();
+       // this snag of code clears out whatever is in the jumbotron
+       $( "#content" ).empty();
+       $("#ourText").add( "div" ).addClass( "content" );
+      var playSelected = $('#choosePlay').find('option:selected').text();   //$('#choosePlay').prop('name');
 
         $("#masthead").text(playSelected);
     });
@@ -141,16 +153,20 @@ $(document).ready(function(){
 
 
 
-
-
+// end of experimenting ground
   function parse(document){
     console.log("success");
+
  $("#chooseSearch").change(function(){
 
 
 var searchChosen = $('#chooseSearch').val();
 
    if (searchChosen == "Get Character List") {
+
+     // this snag of code clears out whatever is in the jumbotron
+     $( "#content" ).empty();
+     $("#ourText").add( "div" ).addClass( "content" );
 
   $(document).find("PERSONA").each(function () {
   var $persona = $(this);
@@ -161,9 +177,42 @@ var searchChosen = $('#chooseSearch').val();
 
   else if (searchChosen == "Choose type of search") {
 
+    // this snag of code clears out whatever is in the jumbotron
     $( "#content" ).empty();
     $("#ourText").add( "div" ).addClass( "content" );
 
+  }
+  else if (searchChosen == "Search for Scene or Act")
+  {
+    // this snag of code clears out whatever is in the jumbotron
+    $( "#content" ).empty();
+    $("#ourText").add( "div" ).addClass( "content" );
+
+    $(document).find("TITLE").each(function () {
+    var $title = $(this);
+    $("#content").append( "<div class = \" sectionOfPlay \" > <p class = \"fromXML\">" + $title.text() + "</p> </div> <br> <p>" //+    $($title).find('STAGEDIR').text() + "</p> <br>"
+  );
+
+    console.log ( $title.children());
+    $($title).children().each(function () {
+                   console.log($(this).text());
+               });
+
+  });
+  }
+
+  else if (searchChosen == "All Stage Directions")
+  {
+    // this snag of code clears out whatever is in the jumbotron
+    $( "#content" ).empty();
+    $("#ourText").add( "div" ).addClass( "content" );
+
+    $(document).find("STAGEDIR").each(function () {
+    var $stageDir = $(this);
+    $("#content").append( "<p class = \"fromXML\">" + $stageDir.text() + "</p> <br> <p>" //+    $($title).find('STAGEDIR').text() + "</p> <br>"
+  );
+
+  });
   }
 
   });
@@ -171,15 +220,30 @@ var searchChosen = $('#chooseSearch').val();
   };
 
 
+  var playURL = 'plays/' + $('#choosePlay').val() + '.xml' ;
 
+    $.ajax({
+       url: playURL, // name of file you want to parse
+       dataType: "xml",
+       success: parse,
+       error: function(){alert("Error: Something went wrong");}
+       });
+
+
+$("#choosePlay").change(function(){
+ playURL = 'plays/' + $('#choosePlay').val() + '.xml' ;
 
   $.ajax({
-     url: 'lear.xml', // name of file you want to parse
+     url: playURL, // name of file you want to parse
      dataType: "xml",
      success: parse,
      error: function(){alert("Error: Something went wrong");}
      });
+
  });
+
+
+  });
 
 
   </script>
