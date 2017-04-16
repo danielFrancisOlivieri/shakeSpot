@@ -1,0 +1,73 @@
+p
+{
+
+color: red;
+
+}
+
+
+body
+
+{
+
+	background-image: url("https://ih0.redbubble.net/image.208539322.1699/flat,800x800,075,f.jpg");
+}
+
+
+li{
+  z-index: 6;
+}
+section
+{
+  z-index: -1;
+}
+li
+{
+  text-align: left;
+  margin-left: 50%;
+  font-size: 20px;
+  color: black;
+}
+h2
+{
+  margin-left: auto;
+}
+#one
+{
+
+  height: auto;
+
+}
+p{
+
+color: red;
+}
+
+input, select
+{
+    width:45%;
+     padding:10px;
+     border-radius:3px;
+     border:0px;
+     background-color: white;
+     color: black;
+       }
+
+	#ourText
+{
+background-color: white;
+}
+
+h1
+
+{
+  color: white;
+}
+
+.sectionOfPlay
+{
+
+border-style: dashed;
+border-color: black;
+
+}
