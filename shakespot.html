@@ -22,7 +22,7 @@
         <section id="zero" class="window">
             <div class="content">
 			<center>
-                    <h1 id = "masthead" >hamlet</h1>
+                    <h1 id = "masthead" >Hamlet</h1>
 			</center>
                     <br>
                     <center>
@@ -30,7 +30,14 @@
               <!--          <label for="Play"> Play </label> -->
                         <select id = "choosePlay" name="Play">
                     <!--      <option value="Choose the play">Choose the play</option> -->
-                        <option value="lear" name = 'King Lear' >Lear</option>
+                    <option value="a_and_c" >The Tragedy of Antony and Cleopatra</option>
+                      <option value="all_well"  >All's Well that Ends Well</option>
+                        <option value="as_you"  >As You Like It</option>
+                          <option value="com_err"  >The Comedy of Errors</option>
+                            <option value="coriolan"  >Coriolanus</option>
+                              <option value="cymbelin"  >Cymbeline</option>
+                    <option value="lear" name = 'King Lear' >Lear</option>
+
                         <option value="hamlet" name = 'Hamlet, Prince of Denmark' selected="selected"> Hamlet </option>
                         <option value="macbeth" name = "Macbeth" > Macbeth </option>
                         <option value="othello" name = 'Othello' > Othello </option>
@@ -38,6 +45,7 @@
 					  <br><br>
             <select id = "chooseSearch" name="searchChoice">
                 <option value="Choose type of search">Choose type of search</option>
+                <option value="Get Whole Play">Get Whole Play</option>
             <option value="Get Character List">Get Character List</option>
             <option value="Search for Word"> Search for Word </option>
             <option value="Search for Scene or Act"> Search for Scene or Act </option>
@@ -64,68 +72,6 @@
 
 </main>
 
-
-<style>
-
-li{
-  z-index: 6;
-}
-section
-{
-  z-index: -1;
-}
-li
-{
-  text-align: left;
-  margin-left: 50%;
-  font-size: 20px;
-  color: black;
-}
-h2
-{
-  margin-left: auto;
-}
-#one
-{
-
-  height: auto;
-
-}
-p{
-
-color: red;
-}
-
-input, select
-{
-    width:45%;
-     padding:10px;
-     border-radius:3px;
-     border:0px;
-     background-color: white;
-     color: black;
-       }
-
-	#ourText
-{
-background-color: white;
-}
-
-h1
-
-{
-  color: white;
-}
-
-.sectionOfPlay
-{
-
-border-style: dashed;
-border-color: black;
-
-}
-
-</style>
  <script src="jquery.windows.js"></script>
       <!--  <link rel="stylesheet" href="main.css"> -->
 
@@ -214,6 +160,72 @@ var searchChosen = $('#chooseSearch').val();
 
   });
   }
+
+  else if (searchChosen == "Search for all lines by character")
+  {
+    // this snag of code clears out whatever is in the jumbotron
+    $( "#content" ).empty();
+    $("#ourText").add( "div" ).addClass( "content" );
+
+
+
+    $(document).find("SPEECH").each(function(){
+       var $speech = $(this);  //.parent();
+
+       var $speaker =   $($speech).find('SPEAKER');
+       //var $speakerText =  $($speech).find('SPEAKER').text();
+
+if ($speaker.text() == "HAMLET")
+{
+
+  var lines = $($speech).find('LINE');
+
+   console.log($speaker);
+   console.log($speaker.text());
+
+ //  console.log($speakerText);
+   console.log(lines);
+   console.log(lines.text());
+
+   $("#content").append( //"<p>" + $speaker.text() +
+    " <br> <p>" +
+    $speech.text() +
+      '</p> <br>'
+
+      );
+
+}
+
+
+
+       });
+
+
+  }
+
+
+
+// should really be called "get all dialogue"
+else if (searchChosen == "Get Whole Play")
+{
+  // this snag of code clears out whatever is in the jumbotron
+  $( "#content" ).empty();
+  $("#ourText").add( "div" ).addClass( "content" );
+
+  $(document).find("SPEECH").each(function () {
+  var $play = $(this);
+  $("#content").append( "<p class = \"fromXML\">" + $play.text() + "</p> <br> <p>" //+    $($title).find('STAGEDIR').text() + "</p> <br>"
+);
+
+});
+}
+
+
+
+
+
+
+
 
   });
 
