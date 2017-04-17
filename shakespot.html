@@ -1,5 +1,6 @@
 <head>
 
+<title> ShakeSpot </title>
 
 <link rel="stylesheet" href="styles.css">
 
@@ -7,7 +8,7 @@
 <script type="text/javascript"> </script>
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -17,13 +18,58 @@
 
 </head>
 
+<style>
+
+#ourText
+{
+  display: none;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+
+    visibility: visible;
+}
+
+
+.tooltip  .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: red;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      top: -5px;
+      left: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
+</style>
+
 <main>
 
         <section id="zero" class="window">
             <div class="content">
 			<center>
-                    <h1 id = "masthead" >Hamlet</h1>
+        <div  class="tooltip" >
+                    <h1 id = "masthead" > Hamlet   </h1>
+                    <span class="tooltiptext"> play title <span>
+
+        </div>
 			</center>
+                    <br>
+
                     <br>
                     <center>
                       <div>
@@ -36,9 +82,14 @@
                           <option value="com_err"  >The Comedy of Errors</option>
                             <option value="coriolan"  >Coriolanus</option>
                               <option value="cymbelin"  >Cymbeline</option>
+                              <option value="dream"  >Midsummer Night's Dream</option>
+                                    <option value="hamlet" name = 'Hamlet, Prince of Denmark' selected="selected"> Hamlet </option>
+                              <option value="hen_iv_1"  >Henry IV Part I</option>
+                              <option value="hen_iv_2"  >Henry IV Part II</option>
+
                     <option value="lear" name = 'King Lear' >Lear</option>
 
-                        <option value="hamlet" name = 'Hamlet, Prince of Denmark' selected="selected"> Hamlet </option>
+
                         <option value="macbeth" name = "Macbeth" > Macbeth </option>
                         <option value="othello" name = 'Othello' > Othello </option>
                       </select>
@@ -79,59 +130,15 @@
 
 
 
+
 // sets the header to the name of the play you have selected
 $(document).ready(function(){
 
-/*
-  $('#inputBar').bind("enterKey",function(e){
-
-  var userInput = $("#inputBar").val().toUpperCase();
-  //userInput = userInput.toUpperCase();
-   console.log(userInput);
-
-    $(document).find("SPEECH").each(function(){
-       var $speech = $(this);  //.parent();
-        console.log($speech.text());
-       var $speaker =   $($speech).find('SPEAKER');
-       //var $speakerText =  $($speech).find('SPEAKER').text();
-        console.log($speaker.text());
-
-if ($speaker.text() == userInput)
-{
-
-  var lines = $($speech).find('LINE');
-
-   console.log($speaker);
-   console.log($speaker.text());
-
- //  console.log($speakerText);
-   console.log(lines);
-   console.log(lines.text());
-
-   $("#content").append( //"<p>" + $speaker.text() +
-    " <br> <p>" +
-    $speech.text() +
-      '</p> <br>'
-
-      );
-
-}
-
-
-
-       });
-
-  });
-  $('#inputBar').keyup(function(e){
-  if(e.keyCode == 13)
-  {
-    $(this).trigger("enterKey");
-  }
-  });
-
-*/
+// new ************************************************************************
 
      $("#choosePlay").change(function(){
+
+
 
        // this snag of code clears out whatever is in the jumbotron
        $( "#content" ).empty();
@@ -154,6 +161,8 @@ if ($speaker.text() == userInput)
     console.log("success");
 
  $("#chooseSearch").change(function(){
+
+    $("#ourText").show();
 
 
 var searchChosen = $('#chooseSearch').val();
@@ -179,23 +188,30 @@ var searchChosen = $('#chooseSearch').val();
     $("#ourText").add( "div" ).addClass( "content" );
       $("#inputBar").hide();
 
+      // hides the div in case you want a blank screen
+      $("#ourText").hide();
+
   }
+
+  // search by scene or act
   else if (searchChosen == "Search for Scene or Act")
   {
     // this snag of code clears out whatever is in the jumbotron
     $( "#content" ).empty();
     $("#ourText").add( "div" ).addClass( "content" );
-
+    $("#inputBar").show();
 
     $(document).find("TITLE").each(function () {
     var $title = $(this);
     $("#content").append( "<div class = \" sectionOfPlay \" > <p class = \"fromXML\">" + $title.text() + "</p> </div> <br> <p>" //+    $($title).find('STAGEDIR').text() + "</p> <br>"
+
+
   );
 
     console.log ( $title.children());
-    $($title).children().each(function () {
-                   console.log($(this).text());
-               });
+
+
+
 
   });
   }
@@ -224,6 +240,9 @@ var searchChosen = $('#chooseSearch').val();
 
     // sets the input bar to visible
     $("#inputBar").show();
+
+    var characterIsNotThere = false;
+
     $('#inputBar').bind("enterKey",function(e){
 
       // this snag of code clears out whatever is in the jumbotron
@@ -262,6 +281,12 @@ var searchChosen = $('#chooseSearch').val();
         );
 
     }
+    else {
+
+      characterIsNotThere = true;
+
+
+    }
 
 
 
@@ -274,6 +299,14 @@ var searchChosen = $('#chooseSearch').val();
       $(this).trigger("enterKey");
     }
     });
+if (characterIsNotThere)
+{
+  $("#content").append( //"<p>" + $speaker.text() +
+   " <br> <p> No such character in this play </p> <br>"
+
+     );
+}
+
 
   }
 
