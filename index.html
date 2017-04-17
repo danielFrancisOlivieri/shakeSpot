@@ -1,0 +1,404 @@
+<head>
+
+
+<link rel="stylesheet" href="styles.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript"> </script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<main>
+
+        <section id="zero" class="window">
+            <div class="content">
+			<center>
+                    <h1 id = "masthead" >Hamlet</h1>
+			</center>
+                    <br>
+                    <center>
+                      <div>
+              <!--          <label for="Play"> Play </label> -->
+                        <select id = "choosePlay" name="Play">
+                    <!--      <option value="Choose the play">Choose the play</option> -->
+                    <option value="a_and_c" >The Tragedy of Antony and Cleopatra</option>
+                      <option value="all_well"  >All's Well that Ends Well</option>
+                        <option value="as_you"  >As You Like It</option>
+                          <option value="com_err"  >The Comedy of Errors</option>
+                            <option value="coriolan"  >Coriolanus</option>
+                              <option value="cymbelin"  >Cymbeline</option>
+                    <option value="lear" name = 'King Lear' >Lear</option>
+
+                        <option value="hamlet" name = 'Hamlet, Prince of Denmark' selected="selected"> Hamlet </option>
+                        <option value="macbeth" name = "Macbeth" > Macbeth </option>
+                        <option value="othello" name = 'Othello' > Othello </option>
+                      </select>
+					  <br><br>
+            <select id = "chooseSearch" name="searchChoice">
+                <option value="Choose type of search">Choose type of search</option>
+                <option value="Get Whole Play">Get Whole Play</option>
+            <option value="Get Character List">Get Character List</option>
+            <option value="Search for Word"> Search for Word </option>
+            <option value="Search for Scene or Act"> Search for Scene or Act </option>
+            <option value="Search for all lines by character"> Search for all lines by character </option>
+            <option value="All Stage Directions"> All Stage Directions </option>
+          </select>
+<br><br>
+                        <p>
+                  <!--   <label for="inputBar"> Word to Search for </label> -->
+                     <input id = "inputBar" name = "inputBar"  data-progression = "" type="text" data-helper="If you can't think of a name for yourself, I recommend the name Gort." name="name" placeholder="bubble">
+                 </p>
+                  </div>
+				  <br> <br>
+                  <div id = "ourText" class = "jumbotron" >
+				   <div id="content"></div>
+				  </div>
+
+                  </center>
+                      </div>
+        </section>
+
+
+
+
+</main>
+
+ <script src="jquery.windows.js"></script>
+      <!--  <link rel="stylesheet" href="main.css"> -->
+
+<script>
+
+
+
+// sets the header to the name of the play you have selected
+$(document).ready(function(){
+
+/*
+  $('#inputBar').bind("enterKey",function(e){
+
+  var userInput = $("#inputBar").val().toUpperCase();
+  //userInput = userInput.toUpperCase();
+   console.log(userInput);
+
+    $(document).find("SPEECH").each(function(){
+       var $speech = $(this);  //.parent();
+        console.log($speech.text());
+       var $speaker =   $($speech).find('SPEAKER');
+       //var $speakerText =  $($speech).find('SPEAKER').text();
+        console.log($speaker.text());
+
+if ($speaker.text() == userInput)
+{
+
+  var lines = $($speech).find('LINE');
+
+   console.log($speaker);
+   console.log($speaker.text());
+
+ //  console.log($speakerText);
+   console.log(lines);
+   console.log(lines.text());
+
+   $("#content").append( //"<p>" + $speaker.text() +
+    " <br> <p>" +
+    $speech.text() +
+      '</p> <br>'
+
+      );
+
+}
+
+
+
+       });
+
+  });
+  $('#inputBar').keyup(function(e){
+  if(e.keyCode == 13)
+  {
+    $(this).trigger("enterKey");
+  }
+  });
+
+*/
+
+     $("#choosePlay").change(function(){
+
+       // this snag of code clears out whatever is in the jumbotron
+       $( "#content" ).empty();
+       $("#ourText").add( "div" ).addClass( "content" );
+      var playSelected = $('#choosePlay').find('option:selected').text();   //$('#choosePlay').prop('name');
+
+        $("#masthead").text(playSelected);
+    });
+});
+
+
+
+// parse function that really needs to be renamed or broken down into different pieces
+  $(document).ready(function(){
+
+
+
+// end of experimenting ground
+  function parse(document){
+    console.log("success");
+
+ $("#chooseSearch").change(function(){
+
+
+var searchChosen = $('#chooseSearch').val();
+
+   if (searchChosen == "Get Character List") {
+
+     // this snag of code clears out whatever is in the jumbotron
+     $( "#content" ).empty();
+     $("#ourText").add( "div" ).addClass( "content" );
+       $("#inputBar").hide();
+
+  $(document).find("PERSONA").each(function () {
+  var $persona = $(this);
+  $("#content").append( "<p class = \"fromXML\">" + $persona.text() + "</p> <br>" );
+});
+
+  }
+
+  else if (searchChosen == "Choose type of search") {
+
+    // this snag of code clears out whatever is in the jumbotron
+    $( "#content" ).empty();
+    $("#ourText").add( "div" ).addClass( "content" );
+      $("#inputBar").hide();
+
+  }
+  else if (searchChosen == "Search for Scene or Act")
+  {
+    // this snag of code clears out whatever is in the jumbotron
+    $( "#content" ).empty();
+    $("#ourText").add( "div" ).addClass( "content" );
+
+
+    $(document).find("TITLE").each(function () {
+    var $title = $(this);
+    $("#content").append( "<div class = \" sectionOfPlay \" > <p class = \"fromXML\">" + $title.text() + "</p> </div> <br> <p>" //+    $($title).find('STAGEDIR').text() + "</p> <br>"
+  );
+
+    console.log ( $title.children());
+    $($title).children().each(function () {
+                   console.log($(this).text());
+               });
+
+  });
+  }
+
+  else if (searchChosen == "All Stage Directions")
+  {
+    // this snag of code clears out whatever is in the jumbotron
+    $( "#content" ).empty();
+    $("#ourText").add( "div" ).addClass( "content" );
+      $("#inputBar").hide();
+
+    $(document).find("STAGEDIR").each(function () {
+    var $stageDir = $(this);
+    $("#content").append( "<p class = \"fromXML\">" + $stageDir.text() + "</p> <br> <p>"
+  );
+
+  });
+  }
+
+// searches for all lines by a single character that the user inputs
+  else if (searchChosen == "Search for all lines by character")
+  {
+    // this snag of code clears out whatever is in the jumbotron
+    $( "#content" ).empty();
+    $("#ourText").add( "div" ).addClass( "content" );
+
+    // sets the input bar to visible
+    $("#inputBar").show();
+    $('#inputBar').bind("enterKey",function(e){
+
+      // this snag of code clears out whatever is in the jumbotron
+      $( "#content" ).empty();
+      $("#ourText").add( "div" ).addClass( "content" );
+
+
+    var userInput = $("#inputBar").val().toUpperCase();
+    //userInput = userInput.toUpperCase();
+     console.log(userInput);
+
+      $(document).find("SPEECH").each(function(){
+         var $speech = $(this);  //.parent();
+          console.log($speech.text());
+         var $speaker =   $($speech).find('SPEAKER');
+         //var $speakerText =  $($speech).find('SPEAKER').text();
+          console.log($speaker.text());
+
+    if ($speaker.text().includes(userInput))
+    {
+
+    var lines = $($speech).find('LINE');
+
+     console.log($speaker);
+     console.log($speaker.text());
+
+    //  console.log($speakerText);
+     console.log(lines);
+     console.log(lines.text());
+
+     $("#content").append( //"<p>" + $speaker.text() +
+      " <br> <p>" +
+      $speech.text() +
+        '</p> <br>'
+
+        );
+
+    }
+
+
+
+         });
+
+    });
+    $('#inputBar').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+      $(this).trigger("enterKey");
+    }
+    });
+
+  }
+
+
+
+// should really be called "get all dialogue"
+else if (searchChosen == "Get Whole Play")
+{
+
+  // this snag of code clears out whatever is in the jumbotron
+  $( "#content" ).empty();
+  $("#ourText").add( "div" ).addClass( "content" );
+    $("#inputBar").hide();
+
+  $(document).find("SPEECH").each(function () {
+  var $play = $(this);
+  $("#content").append( "<p class = \"fromXML\">" + $play.text() + "</p> <br> <p>"
+);
+
+});
+}
+
+
+// search for word
+else if (searchChosen == "Search for Word")
+{
+
+  // this snag of code clears out whatever is in the jumbotron
+  $( "#content" ).empty();
+  $("#ourText").add( "div" ).addClass( "content" );
+
+  // sets the input bar to visible
+  $("#inputBar").show();
+  $('#inputBar').bind("enterKey",function(e){
+
+    // this snag of code clears out whatever is in the jumbotron
+    $( "#content" ).empty();
+    $("#ourText").add( "div" ).addClass( "content" );
+
+
+  var userInput = $("#inputBar").val().toUpperCase();
+  //userInput = userInput.toUpperCase();
+   console.log(userInput);
+
+    $(document).find("SPEECH").each(function(){
+       var $speech = $(this);  //.parent();
+        console.log($speech.text());
+       var $speaker =   $($speech).find('SPEAKER');
+       //var $speakerText =  $($speech).find('SPEAKER').text();
+        console.log($speaker.text());
+
+
+  var $lines = $($speech).find('LINE');
+
+console.log($lines);
+
+ var linesUpperCase = $lines.text().toUpperCase();
+
+ console.log(userInput);
+  if (linesUpperCase.includes(userInput))
+  {
+
+
+   console.log($speaker);
+   console.log($speaker.text());
+
+  //  console.log($speakerText);
+   console.log($lines);
+   console.log($lines.text());
+
+   $("#content").append( //"<p>" + $speaker.text() +
+    " <br> <p>" +
+    $lines.text() +
+      '</p> <br>'
+
+      );
+
+  }
+
+
+
+       });
+
+  });
+  $('#inputBar').keyup(function(e){
+  if(e.keyCode == 13)
+  {
+    $(this).trigger("enterKey");
+  }
+  });
+
+
+}
+
+
+
+  });
+
+  };
+
+
+  var playURL = 'plays/' + $('#choosePlay').val() + '.xml' ;
+
+    $.ajax({
+       url: playURL, // name of file you want to parse
+       dataType: "xml",
+       success: parse,
+       error: function(){alert("Error: Something went wrong");}
+       });
+
+
+$("#choosePlay").change(function(){
+ playURL = 'plays/' + $('#choosePlay').val() + '.xml' ;
+
+  $.ajax({
+     url: playURL, // name of file you want to parse
+     dataType: "xml",
+     success: parse,
+     error: function(){alert("Error: Something went wrong");}
+     });
+
+ });
+
+
+  });
+
+
+  </script>
