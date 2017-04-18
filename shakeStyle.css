@@ -1,0 +1,161 @@
+p
+{
+
+color: red;
+
+}
+
+
+body
+
+{
+
+	background-image: url("https://ih0.redbubble.net/image.208539322.1699/flat,800x800,075,f.jpg");
+}
+
+
+li{
+  z-index: 6;
+}
+section
+{
+  z-index: -1;
+}
+li
+{
+  text-align: left;
+  margin-left: 50%;
+  font-size: 20px;
+  color: black;
+}
+h2
+{
+  margin-left: auto;
+}
+#one
+{
+
+  height: auto;
+
+}
+p{
+
+color: red;
+}
+
+input, select
+{
+    width:45%;
+     padding:10px;
+     border-radius:3px;
+     border:0px;
+     background-color: white;
+     color: black;
+       }
+
+	#ourText
+{
+background-color: white;
+}
+
+#inputBar
+
+{
+
+	display: none;
+
+}
+
+h1
+
+{
+  color: white;
+}
+
+.sectionOfPlay
+{
+
+
+border-color: black;
+
+}
+
+#ourText
+{
+  display: none;
+
+  margin: 100px;
+  padding: 100px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+
+    visibility: visible;
+}
+
+
+.tooltip  .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: red;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      top: -5px;
+      left: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.fromXML
+{
+  text-align: left;
+  text-indent: 50px;
+}
+
+.charList, .acts
+{
+
+  text-align: center;
+
+}
+
+
+
+.myButton {
+	background-color:#4051e6;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
+	border:1px solid #83cf19;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+	  text-align: center;
+}
+.myButton:hover {
+	background-color:#d6d927;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+h2
+{
+  color: black;
+}

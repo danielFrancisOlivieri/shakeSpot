@@ -1,89 +1,41 @@
 <head>
 
-<title> ShakeSpot </title>
+    <title> ShakeSpot </title>
 
-<link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="shakeStyle.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
-<script type="text/javascript"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    </script>
 
-<!-- Latest compiled and minified CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <!-- Latest compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="jquery.windows.js"></script>
+    <!--  <link rel="stylesheet" href="main.css"> -->
+
+    <script src="shakespot.js">
+    </script>
 
 </head>
 
-<style>
-
-#ourText
-{
-  display: none;
-
-  margin: 100px;
-  padding: 100px;
-}
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-
-    visibility: visible;
-}
-
-
-.tooltip  .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: red;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-
-    /* Position the tooltip */
-      position: absolute;
-      z-index: 1;
-      top: -5px;
-      left: 105%;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-}
-
-.fromXML
-{
-  text-align: left;
-  text-indent: 50px;
-}
-
-.charList, .acts
-{
-
-  text-align: center;
-
-}
-
-h2
-{
-  color: black;
-}
-
-
-</style>
 
 <main>
+    <!--  this section contains whole user interface   -->
+    <section id="zero" class="window">
+        <div class="content">
+            <center>
+                <div class="tooltip">
 
-        <section id="zero" class="window">
-            <div class="content">
-			<center>
-        <div  class="tooltip" >
-                    <h1 id = "masthead" > Hamlet   </h1>
+                    <!--  This header changes when new plays are selected   -->
+                    <h1 id="masthead"> Hamlet   </h1>
+                    <!--  this span allows an explanation to happen when you mouseover the title   -->
                     <span class="tooltiptext"> play title <span>
 
         </div>
@@ -93,7 +45,7 @@ h2
                     <br>
                     <center>
                       <div>
-              <!--          <label for="Play"> Play </label> -->
+          <!--  this lets user select the play   -->
                         <select id = "choosePlay" name="Play">
                     <!--      <option value="Choose the play">Choose the play</option> -->
                     <option value="a_and_c" >The Tragedy of Antony and Cleopatra</option>
@@ -139,6 +91,8 @@ h2
 
                       </select>
 					  <br><br>
+
+            <!--  lets user select the type of search   -->
             <select id = "chooseSearch" name="searchChoice">
                 <option value="Choose type of search">Choose type of search</option>
                 <option value="Get All Dialogue">Get All Dialogue</option>
@@ -150,8 +104,8 @@ h2
           </select>
 <br><br>
                         <p>
-                  <!--   <label for="inputBar"> Word to Search for </label> -->
-                     <input id = "inputBar" name = "inputBar"  data-progression = "" type="text" data-helper="If you can't think of a name for yourself, I recommend the name Gort." name="name" placeholder="bubble">
+                  <!--  input bar only for searching words   -->
+                     <input id = "inputBar" name = "inputBar"  data-progression = "" type="text" data-helper="If you can't think of a name for yourself, I recommend the name Gort." name="name" placeholder="type your word or phrase here and hit enter">
                  </p>
                   </div>
 				  <br> <br>
@@ -170,347 +124,3 @@ h2
 
 
 </main>
-
- <script src="jquery.windows.js"></script>
-      <!--  <link rel="stylesheet" href="main.css"> -->
-
-<script>
-
-
-
-
-// sets the header to the name of the play you have selected
-$(document).ready(function(){
-
-// new ************************************************************************
-
-     $("#choosePlay").change(function(){
-
-
-
-       // this snag of code clears out whatever is in the jumbotron
-       $( "#content" ).empty();
-       $("#ourText").add( "div" ).addClass( "content" );
-       $("#chooseSearch").val('Choose type of search');
-      var playSelected = $('#choosePlay').find('option:selected').text();   //$('#choosePlay').prop('name');
-
-        $("#masthead").text(playSelected);
-    });
-});
-
-
-
-// parse function that really needs to be renamed or broken down into different pieces
-  $(document).ready(function(){
-
-
-
-
-
-
-// end of experimenting ground
-  function parse(document){
-    console.log("success");
-
- $("#chooseSearch").change(function(){
-
-    $("#ourText").show();
-
-
-var searchChosen = $('#chooseSearch').val();
-
-   if (searchChosen == "Get Character List") {
-
-     // this snag of code clears out whatever is in the jumbotron
-     $( "#content" ).empty();
-     $("#ourText").add( "div" ).addClass( "content" );
-       $("#inputBar").hide();
-
-  $(document).find("PERSONA").each(function () {
-  var $persona = $(this);
-  $("#content").append( "<p class = \"charList\">" + $persona.text() + "</p> <br>" );
-});
-
-  }
-
-  else if (searchChosen == "Choose type of search") {
-
-    // this snag of code clears out whatever is in the jumbotron
-    $( "#content" ).empty();
-    $("#ourText").add( "div" ).addClass( "content" );
-      $("#inputBar").hide();
-
-      // hides the div in case you want a blank screen
-      $("#ourText").hide();
-
-  }
-
-  // search by scene or act
-  else if (searchChosen == "Search for Scene or Act")
-  {
-    // this snag of code clears out whatever is in the jumbotron
-    $( "#content" ).empty();
-    $("#ourText").add( "div" ).addClass( "content" );
-    $("#inputBar").hide();
-
-    $(document).find("TITLE").each(function () {
-    var $title = $(this);
-    $("#content").append( "<div class = \" sectionOfPlay \" > <p class = \"acts\">" + $title.text() + "</p> </div> <br> <p>" //+    $($title).find('STAGEDIR').text() + "</p> <br>"
-
-);
-
-
-    //onclick show text of act
-
-    $(".acts").click(function(){
-
-      var txt = $(this).text();
-      console.log(txt);
-  $(document).find("TITLE").each(function () {
-
-    var $chosenTitle = $(this).parent();
-//console.log($chosenTitle.text());
-      if ( $chosenTitle.text().includes(txt) )
-      {
-        $( "#content" ).empty();
-        $("#ourText").add( "div" ).addClass( "content" );
-
-        var $speech =  $($chosenTitle).find('SPEECH');
-        var $speaker =   $($speech).find('SPEAKER');
-        var $lines = $($chosenTitle).find( "LINE" );
-
-
-//console.log($speech.text());
-//console.log($speaker.text());
-console.log($lines.text());
-
-
-        $("#content").append( "<div class = \" sectionOfPlay \" > <p class = \"acts\">" + $speech.text() + "</p> </div> <br> <p>"
-      ); //+    $($title).find('STAGEDIR').text() + "</p> <br>"
-
-        console.log("Woot");
-        console.log($lines.text());
-
-      }
-
-    });
-
-  });
-
-  });
-
-
-
-  // end of if else statement
-  }
-
-  else if (searchChosen == "All Stage Directions")
-  {
-    // this snag of code clears out whatever is in the jumbotron
-    $( "#content" ).empty();
-    $("#ourText").add( "div" ).addClass( "content" );
-      $("#inputBar").hide();
-
-    $(document).find("STAGEDIR").each(function () {
-    var $stageDir = $(this);
-    $("#content").append( "<p class = \"fromXML\">" + $stageDir.text() + "</p> <br> <p>"
-  );
-
-  });
-  }
-
-// searches for all lines by a single character that the user inputs
-  else if (searchChosen == "Search for all lines by character")
-  {
-    // this snag of code clears out whatever is in the jumbotron
-    $( "#content" ).empty();
-    $("#ourText").add( "div" ).addClass( "content" );
-
-    // sets the input bar to visible
-    $("#inputBar").show();
-
-    var characterIsNotThere = false;
-
-    $('#inputBar').bind("enterKey",function(e){
-
-      // this snag of code clears out whatever is in the jumbotron
-      $( "#content" ).empty();
-      $("#ourText").add( "div" ).addClass( "content" );
-
-
-    var userInput = $("#inputBar").val().toUpperCase();
-    //userInput = userInput.toUpperCase();
-
-
-      $(document).find("SPEECH").each(function(){
-         var $speech = $(this);  //.parent();
-
-         var $speaker =   $($speech).find('SPEAKER');
-
-
-    if ($speaker.text().includes(userInput))
-    {
-
-    var lines = $($speech).find('LINE');
-
-
-     $("#content").append( //"<p>" + $speaker.text() +
-      " <br> <p>" +
-      $speech.text() +
-        '</p> <br>'
-
-        );
-
-    }
-    else {
-
-      characterIsNotThere = true;
-
-    }
-
-         });
-
-    });
-    $('#inputBar').keyup(function(e){
-    if(e.keyCode == 13)
-    {
-      $(this).trigger("enterKey");
-    }
-    });
-if (characterIsNotThere)
-{
-  $("#content").append( //"<p>" + $speaker.text() +
-   " <br> <p> No such character in this play </p> <br>"
-
-     );
-}
-
-
-  }
-
-// should really be called "get all dialogue"
-else if (searchChosen == "Get All Dialogue")
-{
-
-  // this snag of code clears out whatever is in the jumbotron
-  $( "#content" ).empty();
-  $("#ourText").add( "div" ).addClass( "content" );
-    $("#inputBar").hide();
-
-  $(document).find("SPEECH").each(function () {
-  var $speech = $(this);
-  $("#content").append( "<p class = \"fromXML\">" + $speech.text() + "</p> <br> <p>"
-);
-
-});
-}
-
-
-// search for word
-else if (searchChosen == "Search for Word")
-{
-
-  // this snag of code clears out whatever is in the jumbotron
-  $( "#content" ).empty();
-  $("#ourText").add( "div" ).addClass( "content" );
-
-  // sets the input bar to visible
-  $("#inputBar").show();
-  $('#inputBar').bind("enterKey",function(e){
-
-    // this snag of code clears out whatever is in the jumbotron
-    $( "#content" ).empty();
-    $("#ourText").add( "div" ).addClass( "content" );
-
-    var wordNotFound = true, wordNotFoundAlreadyAppended = false;
-
-
-  var userInput = $("#inputBar").val().toUpperCase();
-  //userInput = userInput.toUpperCase();
-  // console.log(userInput);
-
-    $(document).find("SPEECH").each(function(){
-       var $speech = $(this);  //.parent();
-      //  console.log($speech.text());
-       var $speaker =   $($speech).find('SPEAKER');
-       //var $speakerText =  $($speech).find('SPEAKER').text();
-      //  console.log($speaker.text());
-
-
-  var $lines = $($speech).find('LINE');
-
-//console.log($lines);
-
- var linesUpperCase = $lines.text().toUpperCase();
-
- //console.log(userInput);
-  if (linesUpperCase.includes(userInput))
-  {
-wordNotFound = false;
-
-   $("#content").append(
-    " <br> <p class = \"fromXML\" >" +
-    $lines.text() +
-      '</p> <br>'
-
-      );
-
-  }
-
-
-       });
-
-
-
-  });
-  $('#inputBar').keyup(function(e){
-  if(e.keyCode == 13)
-  {
-    $(this).trigger("enterKey");
-  }
-  });
-
-  if ((wordNotFound) && (!wordNotFoundAlreadyAppended))
-  {
-    wordNotFoundAlreadyAppended = true;
-    $("#content").append(
-     " <br> <h2> Word Not Found </h2> <br>"
-
-       );
-  }
-
-
-}
-
-  });
-
-  };
-
-
-  var playURL = 'plays/' + $('#choosePlay').val() + '.xml' ;
-
-    $.ajax({
-       url: playURL, // name of file you want to parse
-       dataType: "xml",
-       success: parse,
-       error: function(){alert("Error: Something went wrong");}
-       });
-
-
-$("#choosePlay").change(function(){
- playURL = 'plays/' + $('#choosePlay').val() + '.xml' ;
-
-  $.ajax({
-     url: playURL, // name of file you want to parse
-     dataType: "xml",
-     success: parse,
-     error: function(){alert("Error: Something went wrong");}
-     });
-
- });
-
-
-  });
-
-
-  </script>
