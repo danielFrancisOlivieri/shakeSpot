@@ -23,6 +23,9 @@
 #ourText
 {
   display: none;
+  border-radius: 3%;
+  margin: 100px;
+  padding: 100px;
 }
 
 .tooltip {
@@ -53,6 +56,18 @@
     visibility: visible;
 }
 
+.fromXML
+{
+  text-align: left;
+  text-indent: 50px;
+}
+
+.charList, .acts
+{
+
+  text-align: center;
+
+}
 
 
 </style>
@@ -111,7 +126,10 @@
                   </div>
 				  <br> <br>
                   <div id = "ourText" class = "jumbotron" >
+                    <br>
+
 				   <div id="content"></div>
+
 				  </div>
 
                   </center>
@@ -176,7 +194,7 @@ var searchChosen = $('#chooseSearch').val();
 
   $(document).find("PERSONA").each(function () {
   var $persona = $(this);
-  $("#content").append( "<p class = \"fromXML\">" + $persona.text() + "</p> <br>" );
+  $("#content").append( "<p class = \"charList\">" + $persona.text() + "</p> <br>" );
 });
 
   }
@@ -203,7 +221,7 @@ var searchChosen = $('#chooseSearch').val();
 
     $(document).find("TITLE").each(function () {
     var $title = $(this);
-    $("#content").append( "<div class = \" sectionOfPlay \" > <p class = \"fromXML\">" + $title.text() + "</p> </div> <br> <p>" //+    $($title).find('STAGEDIR').text() + "</p> <br>"
+    $("#content").append( "<div class = \" sectionOfPlay \" > <p class = \"acts\">" + $title.text() + "</p> </div> <br> <p>" //+    $($title).find('STAGEDIR').text() + "</p> <br>"
 
 
   );
