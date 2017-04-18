@@ -124,7 +124,7 @@ $(document).ready(function() {
 
                 $(document).find("STAGEDIR").each(function() {
                     var $stageDir = $(this);
-                    $("#content").append("<p class = \"fromXML\">" + $stageDir.text() + "</p> <br> <p>");
+                    $("#content").append("<p class = \"stageDirections\">" + $stageDir.text() + "</p> <br> <p>");
 
                 });
             }
